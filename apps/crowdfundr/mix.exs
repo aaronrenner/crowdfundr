@@ -37,7 +37,9 @@ defmodule Crowdfundr.Mixfile do
   defp deps do
     [
       {:postgrex, ">= 0.0.0"},
-      {:ecto, "~> 2.1"}
+      {:ecto, "~> 2.1"},
+      {:comeonin, "~> 4.0"},
+      {:argon2_elixir, "~> 1.2"}
     ]
   end
 
