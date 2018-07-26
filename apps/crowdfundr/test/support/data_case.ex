@@ -14,6 +14,9 @@ defmodule Crowdfundr.DataCase do
 
   use ExUnit.CaseTemplate
 
+  alias Ecto.Adapters.SQL.Sandbox
+  alias Ecto.Changeset
+
   using do
     quote do
       alias Crowdfundr.Repo
@@ -26,10 +29,10 @@ defmodule Crowdfundr.DataCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Crowdfundr.Repo)
+    :ok = Sandbox.checkout(Crowdfundr.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Crowdfundr.Repo, {:shared, self()})
+      Sandbox.mode(Crowdfundr.Repo, {:shared, self()})
     end
 
     :ok
@@ -44,7 +47,7 @@ defmodule Crowdfundr.DataCase do
 
   """
   def errors_on(changeset) do
-    Ecto.Changeset.traverse_errors(changeset, fn {message, opts} ->
+    Changeset.traverse_errors(changeset, fn {message, opts} ->
       Enum.reduce(opts, message, fn {key, value}, acc ->
         String.replace(acc, "%{#{key}}", to_string(value))
       end)

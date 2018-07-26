@@ -40,5 +40,3 @@ config :crowdfundr_web, CrowdfundrWeb.Endpoint,
       ~r{lib/crowdfundr_web/templates/.*(eex)$}
     ]
   ]
-
-
