@@ -22,4 +22,4 @@ script:
   - mix test
   - mix credo --strict
   - mix format --check-formatted
-  - MIX_ENV=test mix dialyzer --halt-exit-status
+  - MIX_ENV=test mix dialyzer --format short --halt-exit-status
