@@ -3,6 +3,8 @@ defmodule CrowdfundrWeb.UserController do
 
   alias Crowdfundr.Accounts
   alias Crowdfundr.Accounts.User
+  alias Crowdfundr.Mailer
+  alias Crowdfundr.UserEmail
 
   def new(conn, _params) do
     changeset = Accounts.change_user(%User{})
@@ -11,7 +13,10 @@ defmodule CrowdfundrWeb.UserController do
 
   def create(conn, %{"user" => user_params}) do
     case Accounts.create_user(user_params) do
-      {:ok, _user} ->
+      {:ok, user} ->
+        # Send welcome email
+        user.email |> UserEmail.welcome |> Mailer.deliver
+
         conn
         |> put_flash(:info, "User created successfully.")
         |> redirect(to: page_path(conn, :index))
