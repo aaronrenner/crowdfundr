@@ -18,6 +18,7 @@ defmodule CrowdfundrWeb.UserControllerTest do
 
     assert redirected_to(conn) == page_path(conn,  :index)
     assert_email_sent UserEmail.welcome(email)
+    # How do we test the metrics are sent?
   end
 
   test "POST create/2 rerenders form", %{conn: conn} do

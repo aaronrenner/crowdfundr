@@ -40,6 +40,7 @@ defmodule Crowdfundr.Mixfile do
       {:ecto, "~> 2.1"},
       {:comeonin, "~> 4.0"},
       {:argon2_elixir, "~> 1.2"},
+      {:statix, "~> 1.1"},
       {:swoosh, "~> 0.16"}
     ]
   end

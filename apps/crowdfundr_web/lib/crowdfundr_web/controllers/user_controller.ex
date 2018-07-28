@@ -4,6 +4,7 @@ defmodule CrowdfundrWeb.UserController do
   alias Crowdfundr.Accounts
   alias Crowdfundr.Accounts.User
   alias Crowdfundr.Mailer
+  alias Crowdfundr.Statsd
   alias Crowdfundr.UserEmail
 
   def new(conn, _params) do
@@ -16,6 +17,9 @@ defmodule CrowdfundrWeb.UserController do
       {:ok, user} ->
         # Send welcome email
         user.email |> UserEmail.welcome |> Mailer.deliver
+
+        # Send event to statsd
+        Statsd.increment("user_registered")
 
         conn
         |> put_flash(:info, "User created successfully.")

@@ -9,8 +9,12 @@ defmodule Crowdfundr.Application do
   """
   use Application
 
+  alias Crowdfundr.Statsd
+
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
+
+    :ok = Statsd.connect()
 
     Supervisor.start_link([
       supervisor(Crowdfundr.Repo, []),
