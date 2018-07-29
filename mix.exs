@@ -32,7 +32,7 @@ defmodule Crowdfundr.Umbrella.Mixfile do
 
   defp dialyzer do
     [
-      plt_add_apps: [:ex_unit]
+      plt_add_apps: [:ex_unit, :mix]
     ]
   end
 end
