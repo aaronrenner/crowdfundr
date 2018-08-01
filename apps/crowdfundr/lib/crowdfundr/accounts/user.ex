@@ -19,6 +19,12 @@ defmodule Crowdfundr.Accounts.User do
     timestamps type: :utc_datetime
   end
 
+  @type t :: %__MODULE__{
+    id: String.t(),
+    email: String.t(),
+    password: String.t()
+  }
+
   @doc false
   def changeset(user, attrs) do
     user
