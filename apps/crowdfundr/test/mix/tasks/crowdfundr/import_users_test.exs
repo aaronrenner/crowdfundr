@@ -1,13 +1,13 @@
 defmodule Mix.Tasks.Crowdfundr.ImportUsersTest do
   use Crowdfundr.DataCase, async: true
 
-  import Swoosh.TestAssertions
+  import Mox
 
-  alias Crowdfundr.Accounts
-  alias Crowdfundr.UserEmail
+  alias Crowdfundr.Accounts.User
+  alias Crowdfundr.MockCrowdfundr
   alias Mix.Tasks.Crowdfundr.ImportUsers
 
-  setup :create_tmp_dir
+  setup [:create_tmp_dir, :set_mox_from_context, :verify_on_exit!]
 
   test "run/1 creates users from the given usernames and passwords", %{tmp_dir: tmp_dir} do
     filename = Path.join(tmp_dir, "test.json")
@@ -17,12 +17,15 @@ defmodule Mix.Tasks.Crowdfundr.ImportUsersTest do
     ])
     File.write!(filename, json_data)
 
-    ImportUsers.run([filename])
+    MockCrowdfundr
+    |> expect(:register_user, fn %{"email" => "user1@example.com", "password" => "secret"} ->
+      {:ok, %User{email: "user1@example.com"}}
+    end)
+    |> expect(:register_user, fn %{"email" => "user2@example.com", "password" => "password"} ->
+      {:ok, %User{email: "user2@example.com"}}
+    end)
 
-    assert Accounts.list_users() |> length == 2
-    assert_email_sent UserEmail.welcome("user1@example.com")
-    assert_email_sent UserEmail.welcome("user2@example.com")
-    # How do we test the metrics are sent?
+    ImportUsers.run([filename])
   end
 
   defp create_tmp_dir(_) do

@@ -1,10 +1,11 @@
-defmodule CrowdfundrTest do
+defmodule Crowdfundr.DefaultImplTest do
   use Crowdfundr.DataCase, async: true
 
   import Swoosh.TestAssertions
 
   alias Crowdfundr.Accounts
   alias Crowdfundr.Accounts.User
+  alias Crowdfundr.DefaultImpl
   alias Crowdfundr.UserEmail
 
   test "register_user/1 with valid data" do
@@ -13,7 +14,7 @@ defmodule CrowdfundrTest do
     params = %{email: email, password: password}
 
     assert {:ok, %User{id: id, email: ^email}} =
-      Crowdfundr.register_user(params)
+      DefaultImpl.register_user(params)
 
     assert %User{id: id, email: ^email} = Accounts.get_user!(id)
     assert_email_sent UserEmail.welcome(email)
@@ -21,6 +22,6 @@ defmodule CrowdfundrTest do
   end
 
   test "register_user/1 with invalid data" do
-    assert {:error, %Ecto.Changeset{}} = Crowdfundr.register_user(%{})
+    assert {:error, %Ecto.Changeset{}} = DefaultImpl.register_user(%{})
   end
 end
