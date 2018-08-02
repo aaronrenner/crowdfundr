@@ -1,7 +1,5 @@
 defmodule Crowdfundr.Accounts do
-  @moduledoc """
-  The Accounts context.
-  """
+  @moduledoc false
 
   import Ecto.Query, warn: false
   alias Crowdfundr.Repo

@@ -1,6 +1,7 @@
 defmodule Crowdfundr.Statsd do
-  @moduledoc """
-  Statsd interface for reporting metrics
-  """
+  @moduledoc false
+
+  # Statsd interface for reporting metrics
+
   use Statix
 end

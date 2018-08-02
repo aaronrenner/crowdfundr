@@ -1,7 +1,5 @@
 defmodule Crowdfundr.UserEmail do
-  @moduledoc """
-  Emails that can be sent to users.
-  """
+  @moduledoc false
   import Swoosh.Email
 
   @from_email "crowdfundr@example.com"

@@ -6,7 +6,8 @@ defmodule Crowdfundr.Umbrella.Mixfile do
       apps_path: "apps",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      dialyzer: dialyzer()
+      dialyzer: dialyzer(),
+      docs: docs()
     ]
   end
 
@@ -33,6 +34,12 @@ defmodule Crowdfundr.Umbrella.Mixfile do
   defp dialyzer do
     [
       plt_add_apps: [:ex_unit, :mix]
+    ]
+  end
+
+  defp docs do
+    [
+      ignore_apps: [:crowdfundr_web]
     ]
   end
 end

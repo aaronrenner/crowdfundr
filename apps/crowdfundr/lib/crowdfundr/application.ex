@@ -1,12 +1,5 @@
 defmodule Crowdfundr.Application do
-  @moduledoc """
-  The Crowdfundr Application Service.
-
-  The crowdfundr system business domain lives in this application.
-
-  Exposes API to clients such as the `CrowdfundrWeb` application
-  for use in channels, controllers, and elsewhere.
-  """
+  @moduledoc false
   use Application
 
   alias Crowdfundr.Statsd
