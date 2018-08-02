@@ -1,9 +1,30 @@
 defmodule Crowdfundr do
   @moduledoc """
-  Crowdfundr keeps the contexts that define your domain
-  and business logic.
-
-  Contexts are also responsible for managing your data, regardless
-  if it comes from the database, an external API or others.
+  Crowdfundr Public API.
   """
+
+  alias Crowdfundr.Accounts
+  alias Crowdfundr.Accounts.User
+  alias Crowdfundr.Mailer
+  alias Crowdfundr.Statsd
+  alias Crowdfundr.UserEmail
+  alias Ecto.Changeset
+
+  @doc """
+  Register a user.
+  """
+  @spec register_user(map) :: {:ok, User.t()} | {:error, Changeset.t()}
+  def register_user(user_params) do
+    case Accounts.create_user(user_params) do
+      {:ok, user} ->
+        # Send welcome email
+        user.email |> UserEmail.welcome |> Mailer.deliver
+
+        # Send event to statsd
+        Statsd.increment("user_registered")
+        {:ok, user}
+      {:error, %Changeset{} = changeset} ->
+        {:error, changeset}
+    end
+  end
 end
