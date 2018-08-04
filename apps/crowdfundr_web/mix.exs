@@ -13,7 +13,6 @@ defmodule CrowdfundrWeb.Mixfile do
       elixirc_paths: elixirc_paths(Mix.env),
       compilers: [:phoenix, :gettext] ++ Mix.compilers,
       start_permanent: Mix.env == :prod,
-      aliases: aliases(),
       deps: deps()
     ]
   end
@@ -47,13 +46,5 @@ defmodule CrowdfundrWeb.Mixfile do
       {:cowboy, "~> 1.0"},
       {:mox, "~> 0.3", only: :test}
     ]
-  end
-
-  # Aliases are shortcuts or tasks specific to the current project.
-  # For example, we extend the test task to create and migrate the database.
-  #
-  # See the documentation for `Mix` for more info on aliases.
-  defp aliases do
-    [test: ["ecto.create --quiet", "ecto.migrate", "test"]]
   end
 end

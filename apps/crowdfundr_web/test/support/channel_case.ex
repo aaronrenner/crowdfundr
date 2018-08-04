@@ -15,8 +15,6 @@ defmodule CrowdfundrWeb.ChannelCase do
 
   use ExUnit.CaseTemplate
 
-  alias Ecto.Adapters.SQL.Sandbox
-
   using do
     quote do
       # Import conveniences for testing with channels
@@ -25,13 +23,5 @@ defmodule CrowdfundrWeb.ChannelCase do
       # The default endpoint for testing
       @endpoint CrowdfundrWeb.Endpoint
     end
-  end
-
-  setup tags do
-    :ok = Sandbox.checkout(Crowdfundr.Repo)
-    unless tags[:async] do
-      Sandbox.mode(Crowdfundr.Repo, {:shared, self()})
-    end
-    :ok
   end
 end

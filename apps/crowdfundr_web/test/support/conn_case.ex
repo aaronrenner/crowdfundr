@@ -15,7 +15,6 @@ defmodule CrowdfundrWeb.ConnCase do
 
   use ExUnit.CaseTemplate
 
-  alias Ecto.Adapters.SQL.Sandbox
   alias Phoenix.ConnTest
 
   using do
@@ -29,11 +28,7 @@ defmodule CrowdfundrWeb.ConnCase do
     end
   end
 
-  setup tags do
-    :ok = Sandbox.checkout(Crowdfundr.Repo)
-    unless tags[:async] do
-      Sandbox.mode(Crowdfundr.Repo, {:shared, self()})
-    end
+  setup _tags do
     {:ok, conn: ConnTest.build_conn()}
   end
 end

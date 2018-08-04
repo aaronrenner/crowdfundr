@@ -7,8 +7,7 @@ use Mix.Config
 
 # General application configuration
 config :crowdfundr_web,
-  namespace: CrowdfundrWeb,
-  ecto_repos: [Crowdfundr.Repo]
+  namespace: CrowdfundrWeb
 
 # Configures the endpoint
 config :crowdfundr_web, CrowdfundrWeb.Endpoint,
