@@ -44,7 +44,8 @@ defmodule CrowdfundrWeb.Mixfile do
       {:gettext, "~> 0.11"},
       {:crowdfundr, in_umbrella: true},
       {:cowboy, "~> 1.0"},
-      {:mox, "~> 0.3", only: :test}
+      {:mox, "~> 0.3", only: :test},
+      {:stream_data, "~> 0.1", only: :test}
     ]
   end
 end

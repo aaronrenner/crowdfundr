@@ -5,7 +5,6 @@ defmodule CrowdfundrWeb.UserControllerTest do
 
   alias Crowdfundr.Accounts.User
   alias CrowdfundrWeb.MockCrowdfundr
-  alias Ecto.Changeset
 
   setup [:set_mox_from_context, :verify_on_exit!]
 
@@ -16,10 +15,11 @@ defmodule CrowdfundrWeb.UserControllerTest do
 
   test "POST create/2 with valid params registers a user", %{conn: conn} do
     email = "a@a.com"
-    params = %{"email" => email, "password" => "password"}
+    password = "password"
+    params = %{"email" => email, "password" => password}
 
-    expect(MockCrowdfundr, :register_user, fn ^params ->
-      {:ok, %User{id: "123", email: "a@a.com"}}
+    expect(MockCrowdfundr, :register_user, fn %{email: ^email, password: ^password} ->
+      {:ok, %User{id: "123", email: email}}
     end)
 
     conn = post conn, user_path(conn, :create), user: params
@@ -30,17 +30,7 @@ defmodule CrowdfundrWeb.UserControllerTest do
   test "POST create/2 rerenders form", %{conn: conn} do
     params = %{}
 
-    expect(MockCrowdfundr, :register_user, fn ^params ->
-      {:error, build_invalid_changeset()}
-    end)
-
     conn = post conn, user_path(conn, :create), user: params
     assert html_response(conn, 200) =~ "Create an Account"
-  end
-
-  defp build_invalid_changeset do
-    %User{}
-    |> Changeset.change(email: "email")
-    |> Changeset.add_error(:email, "is invalid")
   end
 end

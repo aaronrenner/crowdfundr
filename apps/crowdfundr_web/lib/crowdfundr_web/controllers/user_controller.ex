@@ -1,16 +1,15 @@
 defmodule CrowdfundrWeb.UserController do
   use CrowdfundrWeb, :controller
 
-  alias Crowdfundr.Accounts
-  alias Crowdfundr.Accounts.User
+  alias CrowdfundrWeb.UserController.RegisterUserRequest
 
   def new(conn, _params) do
-    changeset = Accounts.change_user(%User{})
+    changeset = RegisterUserRequest.changeset()
     render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"user" => user_params}) do
-    case Crowdfundr.register_user(user_params) do
+    case RegisterUserRequest.run(user_params) do
       {:ok, _user} ->
         conn
         |> put_flash(:info, "User created successfully.")
