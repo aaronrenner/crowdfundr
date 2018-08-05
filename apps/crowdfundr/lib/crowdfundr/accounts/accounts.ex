@@ -2,10 +2,13 @@ defmodule Crowdfundr.Accounts do
   @moduledoc false
 
   import Ecto.Query, warn: false
-  alias Crowdfundr.Repo
 
   alias Comeonin.Argon2
   alias Crowdfundr.Accounts.User
+  alias Crowdfundr.EmailAlreadyRegisteredError
+  alias Crowdfundr.InvalidDataError
+  alias Crowdfundr.Repo
+  alias Ecto.Changeset
 
   @doc """
   Gets a single user.
@@ -35,10 +38,19 @@ defmodule Crowdfundr.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec create_user(map) :: {:ok, User.t()} | {:error, EmailAlreadyRegisteredError.t() | InvalidDataError.t()}
   def create_user(attrs \\ %{}) do
-    %User{}
-    |> User.changeset(attrs)
-    |> Repo.insert()
+    case %User{} |> User.changeset(attrs) |> Repo.insert() do
+      {:ok, user} ->
+        {:ok, user}
+
+      {:error, %Changeset{errors: errors} = changeset} ->
+        if {:email, {"is_already_registered", []}} in errors do
+          {:error, EmailAlreadyRegisteredError.exception(email: Changeset.get_change(changeset, :email))}
+        else
+          {:error, InvalidDataError.exception(errors: errors)}
+        end
+    end
   end
 
   @spec fetch_by_email_and_password(String.t(), String.t()) :: {:ok, User.t()} | {:error, :not_found}

@@ -6,6 +6,7 @@ defmodule Crowdfundr.DefaultImplTest do
   alias Crowdfundr.Accounts
   alias Crowdfundr.Accounts.User
   alias Crowdfundr.DefaultImpl
+  alias Crowdfundr.InvalidDataError
   alias Crowdfundr.UserEmail
 
   test "register_user/1 with valid data" do
@@ -22,6 +23,6 @@ defmodule Crowdfundr.DefaultImplTest do
   end
 
   test "register_user/1 with invalid data" do
-    assert {:error, %Ecto.Changeset{}} = DefaultImpl.register_user(%{})
+    assert {:error, %InvalidDataError{}} = DefaultImpl.register_user(%{})
   end
 end

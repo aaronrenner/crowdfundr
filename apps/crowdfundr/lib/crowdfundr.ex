@@ -4,15 +4,16 @@ defmodule Crowdfundr do
   """
 
   alias Crowdfundr.Accounts.User
+  alias Crowdfundr.EmailAlreadyRegisteredError
+  alias Crowdfundr.InvalidDataError
   alias Crowdfundr.DefaultImpl
-  alias Ecto.Changeset
 
   @behaviour Crowdfundr.Impl
 
   @doc """
   Register a user.
   """
-  @spec register_user(map) :: {:ok, User.t()} | {:error, Changeset.t()}
+  @spec register_user(map) :: {:ok, User.t()} | {:error, EmailAlreadyRegisteredError.t() | InvalidDataError.t()}
   def register_user(user_params) do
     impl().register_user(user_params)
   end

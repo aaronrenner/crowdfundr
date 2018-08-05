@@ -3,6 +3,8 @@ defmodule Crowdfundr.AccountsTest do
   use ExUnitProperties
 
   alias Crowdfundr.Accounts
+  alias Crowdfundr.EmailAlreadyRegisteredError
+  alias Crowdfundr.InvalidDataError
 
   describe "users" do
     alias Crowdfundr.Accounts.User
@@ -34,7 +36,13 @@ defmodule Crowdfundr.AccountsTest do
     end
 
     test "create_user/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Accounts.create_user(@invalid_attrs)
+      assert {:error, %InvalidDataError{}} = Accounts.create_user(@invalid_attrs)
+    end
+
+    test "create_user/1 when email has already been taken" do
+      {:ok, _} = Accounts.create_user(@valid_attrs)
+      assert {:error, %EmailAlreadyRegisteredError{}} =
+        Accounts.create_user(@valid_attrs)
     end
 
     property "fetch_by_email_and_password/2 with valid credentials" do

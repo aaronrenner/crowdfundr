@@ -3,25 +3,24 @@ defmodule Crowdfundr.DefaultImpl do
 
   alias Crowdfundr.Accounts
   alias Crowdfundr.Accounts.User
+  alias Crowdfundr.EmailAlreadyRegisteredError
+  alias Crowdfundr.InvalidDataError
   alias Crowdfundr.Mailer
   alias Crowdfundr.Statsd
   alias Crowdfundr.UserEmail
-  alias Ecto.Changeset
 
   @behaviour Crowdfundr.Impl
 
-  @spec register_user(map) :: {:ok, User.t()} | {:error, Changeset.t()}
+  @spec register_user(map) :: {:ok, User.t()} | {:error, EmailAlreadyRegisteredError.t() | InvalidDataError.t()}
   def register_user(user_params) do
-    case Accounts.create_user(user_params) do
-      {:ok, user} ->
-        # Send welcome email
-        user.email |> UserEmail.welcome |> Mailer.deliver
+    with {:ok, user} <- Accounts.create_user(user_params) do
+      # Send welcome email
+      user.email |> UserEmail.welcome |> Mailer.deliver
 
-        # Send event to statsd
-        Statsd.increment("user_registered")
-        {:ok, user}
-      {:error, %Changeset{} = changeset} ->
-        {:error, changeset}
+      # Send event to statsd
+      Statsd.increment("user_registered")
+
+      {:ok, user}
     end
   end
 end

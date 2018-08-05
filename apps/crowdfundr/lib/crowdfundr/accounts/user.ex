@@ -31,7 +31,7 @@ defmodule Crowdfundr.Accounts.User do
     |> cast(attrs, [:email, :password])
     |> validate_required([:email, :password])
     |> put_password_hash()
-    |> unique_constraint(:email)
+    |> unique_constraint(:email, message: "is_already_registered")
   end
 
   defp put_password_hash(%Changeset{valid?: true, changes: %{password: password}} = changeset) do

@@ -5,6 +5,7 @@ defmodule CrowdfundrWeb.UserController.RegisterUserRequest do
   import Ecto.Changeset
 
   alias Crowdfundr.Accounts.User
+  alias Crowdfundr.EmailAlreadyRegisteredError
   alias Ecto.Changeset
 
   @type t :: %__MODULE__{
@@ -44,14 +45,13 @@ defmodule CrowdfundrWeb.UserController.RegisterUserRequest do
       {:ok, user} ->
         {:ok, user}
 
-      {:error, user_changeset} ->
+      {:error, %EmailAlreadyRegisteredError{}} ->
         changeset =
-          user_changeset.errors
-          |> Enum.reduce(changeset, fn {field, {message, opts}}, changeset ->
-            Changeset.add_error(changeset, field, message, opts)
-          end)
+          changeset
+          |> add_error(:email, "is already taken")
           |> set_changeset_action(:insert) # Webform needs action to be set to display errors
-          {:error, changeset}
+
+        {:error, changeset}
     end
   end
 

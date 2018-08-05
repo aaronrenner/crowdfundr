@@ -5,6 +5,7 @@ defmodule CrowdfundrWeb.UserController.RegisterUserRequestTest do
   import Mox
 
   alias Crowdfundr.Accounts.User
+  alias Crowdfundr.EmailAlreadyRegisteredError
   alias CrowdfundrWeb.MockCrowdfundr
   alias CrowdfundrWeb.UserController.RegisterUserRequest
   alias Ecto.Changeset
@@ -55,8 +56,7 @@ defmodule CrowdfundrWeb.UserController.RegisterUserRequestTest do
 
     MockCrowdfundr
     |> expect(:register_user, fn %{email: ^email, password: ^password} ->
-      changeset = %User{} |> Changeset.change() |> Changeset.add_error(:email, "is already taken")
-      {:error, changeset}
+      {:error, EmailAlreadyRegisteredError.exception(email: email)}
     end)
 
     assert {:error, %Changeset{data: %RegisterUserRequest{}, action: :insert} = changeset} = RegisterUserRequest.run(params)
