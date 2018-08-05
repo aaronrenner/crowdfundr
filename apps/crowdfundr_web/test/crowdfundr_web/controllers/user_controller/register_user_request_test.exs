@@ -16,11 +16,12 @@ defmodule CrowdfundrWeb.UserController.RegisterUserRequestTest do
       "email" => string(:alphanumeric, min_length: 1),
       "password" => string(:alphanumeric, min_length: 8)
     }) do
-
       %{
         "email" => email,
-        "password" => password
+        "password" => password,
       } = params
+
+      params = Map.put(params, "password_confirmation", password)
 
       user = %User{email: email}
 
@@ -50,7 +51,7 @@ defmodule CrowdfundrWeb.UserController.RegisterUserRequestTest do
     email = "foo@example.com"
     password = "password"
 
-    params = %{"email" => email, "password" => password}
+    params = %{"email" => email, "password" => password, "password_confirmation" => password}
 
     MockCrowdfundr
     |> expect(:register_user, fn %{email: ^email, password: ^password} ->

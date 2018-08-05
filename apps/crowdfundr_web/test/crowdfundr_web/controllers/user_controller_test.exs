@@ -16,7 +16,7 @@ defmodule CrowdfundrWeb.UserControllerTest do
   test "POST create/2 with valid params registers a user", %{conn: conn} do
     email = "a@a.com"
     password = "password"
-    params = %{"email" => email, "password" => password}
+    params = %{"email" => email, "password" => password, "password_confirmation" => password}
 
     expect(MockCrowdfundr, :register_user, fn %{email: ^email, password: ^password} ->
       {:ok, %User{id: "123", email: email}}

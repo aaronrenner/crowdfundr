@@ -9,13 +9,15 @@ defmodule CrowdfundrWeb.UserController.RegisterUserRequest do
 
   @type t :: %__MODULE__{
     email: String.t() | nil,
-    password: String.t() | nil
+    password: String.t() | nil,
+    password_confirmation: String.t() | nil
   }
 
   @primary_key false
   embedded_schema do
     field :email, :string
     field :password, :string
+    field :password_confirmation, :string
   end
 
   @spec run(map) :: {:ok, User.t()} | {:error, Changeset.t()}
@@ -30,9 +32,10 @@ defmodule CrowdfundrWeb.UserController.RegisterUserRequest do
   @spec changeset(t, map()) :: Changeset.t()
   def changeset(request \\ %__MODULE__{}, params \\ %{}) do
     request
-    |> cast(params, [:email, :password])
-    |> validate_required([:email, :password])
+    |> cast(params, [:email, :password, :password_confirmation])
+    |> validate_required([:email, :password, :password_confirmation])
     |> validate_length(:password, min: 8)
+    |> validate_confirmation(:password, message: "does not match password", required: true)
   end
 
   @spec register_user(t, Changeset.t()) :: {:ok, User.t()} |{:error, Changeset.t()}
