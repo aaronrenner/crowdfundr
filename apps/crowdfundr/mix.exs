@@ -43,7 +43,8 @@ defmodule Crowdfundr.Mixfile do
       {:jason, "~> 1.1"},
       {:statix, "~> 1.1"},
       {:swoosh, "~> 0.16"},
-      {:mox, "~> 0.3", only: :test}
+      {:mox, "~> 0.3", only: :test},
+      {:stream_data, "~> 0.1", only: :test}
     ]
   end
 

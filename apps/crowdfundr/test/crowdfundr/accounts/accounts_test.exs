@@ -1,10 +1,10 @@
 defmodule Crowdfundr.AccountsTest do
   use Crowdfundr.DataCase
+  use ExUnitProperties
 
   alias Crowdfundr.Accounts
 
   describe "users" do
-    alias Comeonin.Argon2
     alias Crowdfundr.Accounts.User
 
     @valid_attrs %{email: "some email", password: "some password"}
@@ -25,13 +25,33 @@ defmodule Crowdfundr.AccountsTest do
     end
 
     test "create_user/1 with valid data creates a user" do
-      assert {:ok, %User{} = user} = Accounts.create_user(@valid_attrs)
-      assert user.email == "some email"
-      assert Argon2.checkpw("some password", user.password_hash)
+      email = "aaron@example.com"
+      password = "foo"
+
+      assert {:ok, %User{id: id}} =
+        Accounts.create_user(%{email: email, password: password})
+      assert {:ok, %User{id: ^id}} = Accounts.fetch_by_email_and_password(email, password)
     end
 
     test "create_user/1 with invalid data returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Accounts.create_user(@invalid_attrs)
+    end
+
+    property "fetch_by_email_and_password/2 with valid credentials" do
+      valid_email = "aaron@example.com"
+      valid_password = "password"
+      {:ok, %User{id: id}} = Accounts.create_user(%{email: valid_email, password: valid_password})
+
+      check all email <- one_of([constant(valid_email), string(:alphanumeric)]),
+                password <- one_of([constant(valid_password), string(:alphanumeric)]) do
+        if email == valid_email && password == valid_password do
+          assert {:ok, %User{id: ^id}} =
+            Accounts.fetch_by_email_and_password(email, password)
+        else
+          assert {:error, :not_found} =
+            Accounts.fetch_by_email_and_password(email, password)
+        end
+      end
     end
   end
 end
