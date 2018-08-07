@@ -5,9 +5,10 @@ defmodule Crowdfundr.DefaultImplTest do
 
   alias Crowdfundr.Accounts
   alias Crowdfundr.DefaultImpl
+  alias Crowdfundr.DefaultImpl.Accounts
+  alias Crowdfundr.DefaultImpl.UserEmail
   alias Crowdfundr.InvalidDataError
   alias Crowdfundr.User
-  alias Crowdfundr.UserEmail
 
   test "register_user/1 with valid data" do
     email = "user@example.com"

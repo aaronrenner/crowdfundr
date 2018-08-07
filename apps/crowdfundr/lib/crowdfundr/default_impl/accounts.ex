@@ -1,13 +1,13 @@
-defmodule Crowdfundr.Accounts do
+defmodule Crowdfundr.DefaultImpl.Accounts do
   @moduledoc false
 
   import Ecto.Query, warn: false
 
   alias Comeonin.Argon2
-  alias Crowdfundr.Accounts
+  alias Crowdfundr.DefaultImpl.Accounts
+  alias Crowdfundr.DefaultImpl.Accounts.Repo
   alias Crowdfundr.EmailAlreadyRegisteredError
   alias Crowdfundr.InvalidDataError
-  alias Crowdfundr.Repo
   alias Crowdfundr.User
   alias Ecto.Changeset
 

@@ -1,4 +1,4 @@
-defmodule Crowdfundr.UserEmail do
+defmodule Crowdfundr.DefaultImpl.UserEmail do
   @moduledoc false
   import Swoosh.Email
 

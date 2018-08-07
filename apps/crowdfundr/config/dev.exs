@@ -1,7 +1,7 @@
 use Mix.Config
 
 # Configure your database
-config :crowdfundr, Crowdfundr.Repo,
+config :crowdfundr, Crowdfundr.DefaultImpl.Accounts.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",

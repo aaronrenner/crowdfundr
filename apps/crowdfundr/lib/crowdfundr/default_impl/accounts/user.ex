@@ -1,4 +1,4 @@
-defmodule Crowdfundr.Accounts.User do
+defmodule Crowdfundr.DefaultImpl.Accounts.User do
   @moduledoc false
   use Ecto.Schema
 

@@ -2,7 +2,7 @@ defmodule Crowdfundr.Application do
   @moduledoc false
   use Application
 
-  alias Crowdfundr.Statsd
+  alias Crowdfundr.DefaultImpl.Statsd
 
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
@@ -10,7 +10,7 @@ defmodule Crowdfundr.Application do
     :ok = Statsd.connect()
 
     Supervisor.start_link([
-      supervisor(Crowdfundr.Repo, []),
+      supervisor(Crowdfundr.DefaultImpl.Accounts.Repo, []),
     ], strategy: :one_for_one, name: Crowdfundr.Supervisor)
   end
 end

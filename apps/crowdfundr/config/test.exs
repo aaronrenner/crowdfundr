@@ -1,7 +1,7 @@
 use Mix.Config
 
 # Configure your database
-config :crowdfundr, Crowdfundr.Repo,
+config :crowdfundr, Crowdfundr.DefaultImpl.Accounts.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
@@ -13,5 +13,5 @@ config :argon2_elixir,
   t_cost: 1,
   m_cost: 8
 
-config :crowdfundr, Crowdfundr.Mailer,
+config :crowdfundr, Crowdfundr.DefaultImpl.Mailer,
   adapter: Swoosh.Adapters.Test
