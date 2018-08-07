@@ -4,9 +4,9 @@ defmodule Crowdfundr.DefaultImplTest do
   import Swoosh.TestAssertions
 
   alias Crowdfundr.Accounts
-  alias Crowdfundr.Accounts.User
   alias Crowdfundr.DefaultImpl
   alias Crowdfundr.InvalidDataError
+  alias Crowdfundr.User
   alias Crowdfundr.UserEmail
 
   test "register_user/1 with valid data" do

@@ -7,7 +7,7 @@ defmodule Crowdfundr.AccountsTest do
   alias Crowdfundr.InvalidDataError
 
   describe "users" do
-    alias Crowdfundr.Accounts.User
+    alias Crowdfundr.User
 
     @valid_attrs %{email: "some email", password: "some password"}
     @invalid_attrs %{email: nil, password: nil}

@@ -4,10 +4,11 @@ defmodule Crowdfundr.Accounts do
   import Ecto.Query, warn: false
 
   alias Comeonin.Argon2
-  alias Crowdfundr.Accounts.User
+  alias Crowdfundr.Accounts
   alias Crowdfundr.EmailAlreadyRegisteredError
   alias Crowdfundr.InvalidDataError
   alias Crowdfundr.Repo
+  alias Crowdfundr.User
   alias Ecto.Changeset
 
   @doc """
@@ -24,7 +25,7 @@ defmodule Crowdfundr.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user!(id), do: Accounts.User |> Repo.get!(id) |> to_domain
 
   @doc """
   Creates a user.
@@ -34,15 +35,12 @@ defmodule Crowdfundr.Accounts do
       iex> create_user(%{field: value})
       {:ok, %User{}}
 
-      iex> create_user(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
   """
   @spec create_user(map) :: {:ok, User.t()} | {:error, EmailAlreadyRegisteredError.t() | InvalidDataError.t()}
   def create_user(attrs \\ %{}) do
-    case %User{} |> User.changeset(attrs) |> Repo.insert() do
+    case %Accounts.User{} |> Accounts.User.changeset(attrs) |> Repo.insert() do
       {:ok, user} ->
-        {:ok, user}
+        {:ok, to_domain(user)}
 
       {:error, %Changeset{errors: errors} = changeset} ->
         if {:email, {"is_already_registered", []}} in errors do
@@ -55,10 +53,10 @@ defmodule Crowdfundr.Accounts do
 
   @spec fetch_by_email_and_password(String.t(), String.t()) :: {:ok, User.t()} | {:error, :not_found}
   def fetch_by_email_and_password(email, password) when is_binary(email) and is_binary(password) do
-    case User |> with_email(email) |> Repo.one do
-      %User{password_hash: hash} = user ->
+    case Accounts.User |> with_email(email) |> Repo.one do
+      %Accounts.User{password_hash: hash} = user ->
         if Argon2.checkpw(password, hash) do
-          {:ok, user}
+          {:ok, to_domain(user)}
         else
           {:error, :not_found}
         end
@@ -70,5 +68,9 @@ defmodule Crowdfundr.Accounts do
 
   defp with_email(query, email) do
     from(u in query, where: u.email == ^email)
+  end
+
+  defp to_domain(%Accounts.User{id: id, email: email}) do
+    %User{id: id, email: email}
   end
 end

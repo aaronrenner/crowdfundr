@@ -1,7 +1,5 @@
 defmodule Crowdfundr.Accounts.User do
-  @moduledoc """
-  A user struct.
-  """
+  @moduledoc false
   use Ecto.Schema
 
   import Ecto.Changeset

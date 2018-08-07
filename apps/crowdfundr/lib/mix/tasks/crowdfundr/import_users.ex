@@ -2,6 +2,8 @@ defmodule Mix.Tasks.Crowdfundr.ImportUsers do
   @moduledoc false
   use Mix.Task
 
+  alias Crowdfundr.User
+
   @shortdoc "Import users from a list of usernames and passwords"
   def run(args) do
     with {:ok, filename} <- parse_args(args) do
@@ -17,7 +19,7 @@ defmodule Mix.Tasks.Crowdfundr.ImportUsers do
     |> File.read!()
     |> Jason.decode!(strings: :copy)
     |> Enum.map(fn user_params ->
-      {:ok, _} = Crowdfundr.register_user(user_params)
+      {:ok, %User{}} = Crowdfundr.register_user(user_params)
     end)
   end
 

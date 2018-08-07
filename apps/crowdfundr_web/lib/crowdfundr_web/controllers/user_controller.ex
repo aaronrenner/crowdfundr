@@ -1,6 +1,7 @@
 defmodule CrowdfundrWeb.UserController do
   use CrowdfundrWeb, :controller
 
+  alias Crowdfundr.User
   alias CrowdfundrWeb.UserController.RegisterUserRequest
 
   def new(conn, _params) do
@@ -10,7 +11,7 @@ defmodule CrowdfundrWeb.UserController do
 
   def create(conn, %{"user" => user_params}) do
     case RegisterUserRequest.run(user_params) do
-      {:ok, _user} ->
+      {:ok, %User{} = _user} ->
         conn
         |> put_flash(:info, "User created successfully.")
         |> redirect(to: page_path(conn, :index))

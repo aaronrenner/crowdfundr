@@ -4,8 +4,8 @@ defmodule CrowdfundrWeb.UserController.RegisterUserRequestTest do
 
   import Mox
 
-  alias Crowdfundr.Accounts.User
   alias Crowdfundr.EmailAlreadyRegisteredError
+  alias Crowdfundr.User
   alias CrowdfundrWeb.MockCrowdfundr
   alias CrowdfundrWeb.UserController.RegisterUserRequest
   alias Ecto.Changeset

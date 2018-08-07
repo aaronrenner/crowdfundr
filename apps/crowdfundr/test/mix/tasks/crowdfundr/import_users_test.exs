@@ -3,8 +3,8 @@ defmodule Mix.Tasks.Crowdfundr.ImportUsersTest do
 
   import Mox
 
-  alias Crowdfundr.Accounts.User
   alias Crowdfundr.MockCrowdfundr
+  alias Crowdfundr.User
   alias Mix.Tasks.Crowdfundr.ImportUsers
 
   setup [:create_tmp_dir, :set_mox_from_context, :verify_on_exit!]

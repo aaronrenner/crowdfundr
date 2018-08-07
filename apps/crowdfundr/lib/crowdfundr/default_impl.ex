@@ -2,11 +2,11 @@ defmodule Crowdfundr.DefaultImpl do
   @moduledoc false
 
   alias Crowdfundr.Accounts
-  alias Crowdfundr.Accounts.User
   alias Crowdfundr.EmailAlreadyRegisteredError
   alias Crowdfundr.InvalidDataError
   alias Crowdfundr.Mailer
   alias Crowdfundr.Statsd
+  alias Crowdfundr.User
   alias Crowdfundr.UserEmail
 
   @behaviour Crowdfundr.Impl

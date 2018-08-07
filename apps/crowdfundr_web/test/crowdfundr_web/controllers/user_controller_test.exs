@@ -3,7 +3,7 @@ defmodule CrowdfundrWeb.UserControllerTest do
 
   import Mox
 
-  alias Crowdfundr.Accounts.User
+  alias Crowdfundr.User
   alias CrowdfundrWeb.MockCrowdfundr
 
   setup [:set_mox_from_context, :verify_on_exit!]

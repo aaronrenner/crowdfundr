@@ -3,10 +3,10 @@ defmodule Crowdfundr do
   Crowdfundr Public API.
   """
 
-  alias Crowdfundr.Accounts.User
+  alias Crowdfundr.DefaultImpl
   alias Crowdfundr.EmailAlreadyRegisteredError
   alias Crowdfundr.InvalidDataError
-  alias Crowdfundr.DefaultImpl
+  alias Crowdfundr.User
 
   @behaviour Crowdfundr.Impl
 

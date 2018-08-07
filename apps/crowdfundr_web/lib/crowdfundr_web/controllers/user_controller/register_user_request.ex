@@ -4,8 +4,8 @@ defmodule CrowdfundrWeb.UserController.RegisterUserRequest do
 
   import Ecto.Changeset
 
-  alias Crowdfundr.Accounts.User
   alias Crowdfundr.EmailAlreadyRegisteredError
+  alias Crowdfundr.User
   alias Ecto.Changeset
 
   @type t :: %__MODULE__{
@@ -42,7 +42,7 @@ defmodule CrowdfundrWeb.UserController.RegisterUserRequest do
   @spec register_user(t, Changeset.t()) :: {:ok, User.t()} |{:error, Changeset.t()}
   defp register_user(%__MODULE__{email: email, password: password}, changeset) do
     case Crowdfundr.register_user(%{email: email, password: password}) do
-      {:ok, user} ->
+      {:ok, %User{} = user} ->
         {:ok, user}
 
       {:error, %EmailAlreadyRegisteredError{}} ->
