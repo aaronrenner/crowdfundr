@@ -2,7 +2,7 @@ defmodule Crowdfundr.Application do
   @moduledoc false
   use Application
 
-  alias Crowdfundr.DefaultImpl.Statsd
+  alias Crowdfundr.DefaultImpl.Metrics.DefaultImpl.Statsd
 
   def start(_type, _args) do
     import Supervisor.Spec, warn: false

@@ -3,7 +3,7 @@ defmodule Crowdfundr.DefaultImpl do
 
   alias Crowdfundr.DefaultImpl.Accounts
   alias Crowdfundr.DefaultImpl.Mailer
-  alias Crowdfundr.DefaultImpl.Statsd
+  alias Crowdfundr.DefaultImpl.Metrics
   alias Crowdfundr.DefaultImpl.UserEmail
   alias Crowdfundr.EmailAlreadyRegisteredError
   alias Crowdfundr.InvalidDataError
@@ -17,8 +17,7 @@ defmodule Crowdfundr.DefaultImpl do
       # Send welcome email
       user.email |> UserEmail.welcome |> Mailer.deliver
 
-      # Send event to statsd
-      Statsd.increment("user_registered")
+      Metrics.send_user_registered()
 
       {:ok, user}
     end
