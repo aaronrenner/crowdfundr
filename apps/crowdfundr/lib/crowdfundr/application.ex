@@ -10,7 +10,7 @@ defmodule Crowdfundr.Application do
     :ok = Statsd.connect()
 
     Supervisor.start_link([
-      supervisor(Crowdfundr.DefaultImpl.Accounts.Repo, []),
+      supervisor(Crowdfundr.DefaultImpl.Accounts.DefaultImpl.Repo, []),
     ], strategy: :one_for_one, name: Crowdfundr.Supervisor)
   end
 end

@@ -1,4 +1,4 @@
-defmodule Crowdfundr.DefaultImpl.Accounts.Repo do
+defmodule Crowdfundr.DefaultImpl.Accounts.DefaultImpl.Repo do
   @moduledoc false
   use Ecto.Repo, otp_app: :crowdfundr
 

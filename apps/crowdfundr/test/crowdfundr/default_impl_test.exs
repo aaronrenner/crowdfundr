@@ -3,10 +3,9 @@ defmodule Crowdfundr.DefaultImplTest do
 
   import Mox
 
-  alias Crowdfundr.Accounts
   alias Crowdfundr.DefaultImpl
-  alias Crowdfundr.DefaultImpl.Accounts
   alias Crowdfundr.InvalidDataError
+  alias Crowdfundr.MockAccounts
   alias Crowdfundr.MockEmails
   alias Crowdfundr.MockMetrics
   alias Crowdfundr.User
@@ -17,17 +16,22 @@ defmodule Crowdfundr.DefaultImplTest do
     email = "user@example.com"
     password = "secret"
     params = %{email: email, password: password}
+    user = %User{id: "foo", email: email}
 
+    expect(MockAccounts, :create_user, fn ^params -> {:ok, user} end)
     expect(MockMetrics, :send_user_registered, fn -> :ok end)
     expect(MockEmails, :send_welcome, fn ^email -> :ok end)
 
-    assert {:ok, %User{id: id, email: ^email}} =
-      DefaultImpl.register_user(params)
-
-    assert %User{id: id, email: ^email} = Accounts.get_user!(id)
+    assert {:ok, ^user} = DefaultImpl.register_user(params)
   end
 
   test "register_user/1 with invalid data" do
-    assert {:error, %InvalidDataError{}} = DefaultImpl.register_user(%{})
+    params = %{}
+
+    expect(MockAccounts, :create_user, fn ^params ->
+      {:error, InvalidDataError.exception(errors: [])}
+    end)
+
+    assert {:error, %InvalidDataError{}} = DefaultImpl.register_user(params)
   end
 end

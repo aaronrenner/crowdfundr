@@ -19,7 +19,7 @@ defmodule Crowdfundr.DataCase do
 
   using do
     quote do
-      alias Crowdfundr.DefaultImpl.Accounts.Repo
+      alias Crowdfundr.DefaultImpl.Accounts.DefaultImpl.Repo
 
       import Ecto
       import Ecto.Changeset
@@ -29,10 +29,10 @@ defmodule Crowdfundr.DataCase do
   end
 
   setup tags do
-    :ok = Sandbox.checkout(Crowdfundr.DefaultImpl.Accounts.Repo)
+    :ok = Sandbox.checkout(Crowdfundr.DefaultImpl.Accounts.DefaultImpl.Repo)
 
     unless tags[:async] do
-      Sandbox.mode(Crowdfundr.DefaultImpl.Accounts.Repo, {:shared, self()})
+      Sandbox.mode(Crowdfundr.DefaultImpl.Accounts.DefaultImpl.Repo, {:shared, self()})
     end
 
     :ok
