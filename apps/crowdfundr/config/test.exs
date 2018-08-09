@@ -15,3 +15,6 @@ config :argon2_elixir,
 
 config :crowdfundr, Crowdfundr.DefaultImpl.Emails.DefaultImpl.Mailer,
   adapter: Swoosh.Adapters.Test
+
+config :crowdfundr, Crowdfundr.DefaultImpl.Emails.BambooImpl.Mailer,
+  adapter: Bamboo.TestAdapter

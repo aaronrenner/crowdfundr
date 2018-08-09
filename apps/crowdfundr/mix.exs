@@ -42,6 +42,7 @@ defmodule Crowdfundr.Mixfile do
       {:argon2_elixir, "~> 1.2"},
       {:jason, "~> 1.1"},
       {:statix, "~> 1.1"},
+      {:bamboo, "~> 1.0"},
       {:swoosh, "~> 0.16"},
       {:mox, "~> 0.3", only: :test},
       {:stream_data, "~> 0.1", only: :test}

@@ -1,7 +1,7 @@
 defmodule Crowdfundr.DefaultImpl.Emails do
   @moduledoc false
 
-  alias Crowdfundr.DefaultImpl.Emails.DefaultImpl
+  alias Crowdfundr.DefaultImpl.Emails.BambooImpl
 
   @behaviour Crowdfundr.DefaultImpl.Emails.Impl
 
@@ -14,6 +14,6 @@ defmodule Crowdfundr.DefaultImpl.Emails do
   end
 
   defp impl do
-    Application.get_env(:crowdfundr, :emails_impl, DefaultImpl)
+    Application.get_env(:crowdfundr, :emails_impl, BambooImpl)
   end
 end
