@@ -36,6 +36,7 @@ defmodule Crowdfundr.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:cf_emails, in_umbrella: true},
       {:constantizer, "~> 0.2.0"},
       {:postgrex, ">= 0.0.0"},
       {:ecto, "~> 2.1"},
@@ -43,8 +44,6 @@ defmodule Crowdfundr.Mixfile do
       {:argon2_elixir, "~> 1.2"},
       {:jason, "~> 1.1"},
       {:statix, "~> 1.1"},
-      {:bamboo, "~> 1.0"},
-      {:swoosh, "~> 0.16"},
       {:mox, "~> 0.3", only: :test},
       {:stream_data, "~> 0.1", only: :test}
     ]

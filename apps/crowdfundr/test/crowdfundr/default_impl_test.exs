@@ -6,7 +6,7 @@ defmodule Crowdfundr.DefaultImplTest do
   alias Crowdfundr.DefaultImpl
   alias Crowdfundr.InvalidDataError
   alias Crowdfundr.MockAccounts
-  alias Crowdfundr.MockEmails
+  alias Crowdfundr.MockCFEmails
   alias Crowdfundr.MockMetrics
   alias Crowdfundr.User
 
@@ -20,7 +20,7 @@ defmodule Crowdfundr.DefaultImplTest do
 
     expect(MockAccounts, :create_user, fn ^params -> {:ok, user} end)
     expect(MockMetrics, :send_user_registered, fn -> :ok end)
-    expect(MockEmails, :send_welcome, fn ^email -> :ok end)
+    expect(MockCFEmails, :send_welcome, fn ^email -> :ok end)
 
     assert {:ok, ^user} = DefaultImpl.register_user(params)
   end

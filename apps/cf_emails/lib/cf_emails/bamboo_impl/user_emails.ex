@@ -1,4 +1,4 @@
-defmodule Crowdfundr.DefaultImpl.Emails.BambooImpl.UserEmails do
+defmodule CFEmails.BambooImpl.UserEmails do
   @moduledoc false
 
   import Bamboo.Email
