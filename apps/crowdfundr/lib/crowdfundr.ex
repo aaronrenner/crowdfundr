@@ -3,6 +3,8 @@ defmodule Crowdfundr do
   Crowdfundr Public API.
   """
 
+  import Constantizer
+
   alias Crowdfundr.DefaultImpl
   alias Crowdfundr.EmailAlreadyRegisteredError
   alias Crowdfundr.InvalidDataError
@@ -18,7 +20,7 @@ defmodule Crowdfundr do
     impl().register_user(user_params)
   end
 
-  defp impl do
+  defconstp impl do
     Application.get_env(:crowdfundr, :impl, DefaultImpl)
   end
 end

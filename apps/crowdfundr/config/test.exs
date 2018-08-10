@@ -18,3 +18,5 @@ config :crowdfundr, Crowdfundr.DefaultImpl.Emails.DefaultImpl.Mailer,
 
 config :crowdfundr, Crowdfundr.DefaultImpl.Emails.BambooImpl.Mailer,
   adapter: Bamboo.TestAdapter
+
+config :constantizer, resolve_at_compile_time: false

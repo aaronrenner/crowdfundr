@@ -1,6 +1,8 @@
 defmodule Crowdfundr.DefaultImpl.Metrics do
   @moduledoc false
 
+  import Constantizer
+
   alias Crowdfundr.DefaultImpl.Metrics.DefaultImpl
 
   @behaviour Crowdfundr.DefaultImpl.Metrics.Impl
@@ -11,7 +13,7 @@ defmodule Crowdfundr.DefaultImpl.Metrics do
     impl().send_user_registered()
   end
 
-  defp impl do
+  defconstp impl do
     Application.get_env(:crowdfundr, :metrics_impl, DefaultImpl)
   end
 end

@@ -36,6 +36,7 @@ defmodule Crowdfundr.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:constantizer, "~> 0.2.0"},
       {:postgrex, ">= 0.0.0"},
       {:ecto, "~> 2.1"},
       {:comeonin, "~> 4.0"},

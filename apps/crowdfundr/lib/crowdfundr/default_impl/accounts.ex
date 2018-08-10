@@ -1,6 +1,8 @@
 defmodule Crowdfundr.DefaultImpl.Accounts do
   @moduledoc false
 
+  import Constantizer
+
   alias Crowdfundr.DefaultImpl.Accounts.DefaultImpl
   alias Crowdfundr.EmailAlreadyRegisteredError
   alias Crowdfundr.InvalidDataError
@@ -22,7 +24,7 @@ defmodule Crowdfundr.DefaultImpl.Accounts do
     impl().create_user(attrs)
   end
 
-  defp impl do
+  defconstp impl do
     Application.get_env(:crowdfundr, :accounts_impl, DefaultImpl)
   end
 end

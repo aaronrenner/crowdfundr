@@ -1,6 +1,8 @@
 defmodule Crowdfundr.DefaultImpl.Emails do
   @moduledoc false
 
+  import Constantizer
+
   alias Crowdfundr.DefaultImpl.Emails.BambooImpl
 
   @behaviour Crowdfundr.DefaultImpl.Emails.Impl
@@ -13,7 +15,7 @@ defmodule Crowdfundr.DefaultImpl.Emails do
     impl().send_welcome(email_address)
   end
 
-  defp impl do
+  defconstp impl do
     Application.get_env(:crowdfundr, :emails_impl, BambooImpl)
   end
 end
