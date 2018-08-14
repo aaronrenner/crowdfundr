@@ -37,13 +37,13 @@ defmodule Crowdfundr.Mixfile do
   defp deps do
     [
       {:cf_emails, in_umbrella: true},
+      {:cf_metrics, in_umbrella: true},
       {:constantizer, "~> 0.2.0"},
       {:postgrex, ">= 0.0.0"},
       {:ecto, "~> 2.1"},
       {:comeonin, "~> 4.0"},
       {:argon2_elixir, "~> 1.2"},
       {:jason, "~> 1.1"},
-      {:statix, "~> 1.1"},
       {:mox, "~> 0.3", only: :test},
       {:stream_data, "~> 0.1", only: :test}
     ]

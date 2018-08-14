@@ -1,7 +1,7 @@
-defmodule Crowdfundr.DefaultImpl.Metrics.DefaultImplTest do
+defmodule CFMetrics.DefaultImplTest do
   use ExUnit.Case, async: true
 
-  alias Crowdfundr.DefaultImpl.Metrics.DefaultImpl
+  alias CFMetrics.DefaultImpl
 
   test "returns :ok" do
     assert :ok = DefaultImpl.send_user_registered()

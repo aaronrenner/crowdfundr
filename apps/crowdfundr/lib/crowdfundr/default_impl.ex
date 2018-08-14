@@ -2,7 +2,6 @@ defmodule Crowdfundr.DefaultImpl do
   @moduledoc false
 
   alias Crowdfundr.DefaultImpl.Accounts
-  alias Crowdfundr.DefaultImpl.Metrics
   alias Crowdfundr.EmailAlreadyRegisteredError
   alias Crowdfundr.InvalidDataError
   alias Crowdfundr.User
@@ -13,7 +12,7 @@ defmodule Crowdfundr.DefaultImpl do
   def register_user(user_params) do
     with {:ok, user} <- Accounts.create_user(user_params) do
       CFEmails.send_welcome(user.email)
-      Metrics.send_user_registered()
+      CFMetrics.send_user_registered()
 
       {:ok, user}
     end
