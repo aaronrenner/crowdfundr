@@ -39,6 +39,7 @@ defmodule Crowdfundr.Mixfile do
       {:cf_emails, in_umbrella: true},
       {:cf_metrics, in_umbrella: true},
       {:constantizer, "~> 0.2.0"},
+      {:crowdfundr_core, in_umbrella: true},
       {:postgrex, ">= 0.0.0"},
       {:ecto, "~> 2.1"},
       {:comeonin, "~> 4.0"},
