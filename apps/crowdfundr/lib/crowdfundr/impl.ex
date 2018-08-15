@@ -5,5 +5,6 @@ defmodule Crowdfundr.Impl do
   alias Crowdfundr.InvalidDataError
   alias Crowdfundr.User
 
-  @callback register_user(map) :: {:ok, User.t()} | {:error, EmailAlreadyRegisteredError.t() | InvalidDataError.t()}
+  @callback register_user(map) ::
+              {:ok, User.t()} | {:error, EmailAlreadyRegisteredError.t() | InvalidDataError.t()}
 end

@@ -30,8 +30,8 @@ defmodule Crowdfundr.DefaultImpl.Accounts.DefaultImplTest do
       email = "aaron@example.com"
       password = "foo"
 
-      assert {:ok, %User{id: id}} =
-        DefaultImpl.create_user(%{email: email, password: password})
+      assert {:ok, %User{id: id}} = DefaultImpl.create_user(%{email: email, password: password})
+
       assert {:ok, %User{id: ^id}} = DefaultImpl.fetch_by_email_and_password(email, password)
     end
 
@@ -41,23 +41,22 @@ defmodule Crowdfundr.DefaultImpl.Accounts.DefaultImplTest do
 
     test "create_user/1 when email has already been taken" do
       {:ok, _} = DefaultImpl.create_user(@valid_attrs)
-      assert {:error, %EmailAlreadyRegisteredError{}} =
-        DefaultImpl.create_user(@valid_attrs)
+      assert {:error, %EmailAlreadyRegisteredError{}} = DefaultImpl.create_user(@valid_attrs)
     end
 
     property "fetch_by_email_and_password/2 with valid credentials" do
       valid_email = "aaron@example.com"
       valid_password = "password"
-      {:ok, %User{id: id}} = DefaultImpl.create_user(%{email: valid_email, password: valid_password})
+
+      {:ok, %User{id: id}} =
+        DefaultImpl.create_user(%{email: valid_email, password: valid_password})
 
       check all email <- one_of([constant(valid_email), string(:alphanumeric)]),
                 password <- one_of([constant(valid_password), string(:alphanumeric)]) do
         if email == valid_email && password == valid_password do
-          assert {:ok, %User{id: ^id}} =
-            DefaultImpl.fetch_by_email_and_password(email, password)
+          assert {:ok, %User{id: ^id}} = DefaultImpl.fetch_by_email_and_password(email, password)
         else
-          assert {:error, :not_found} =
-            DefaultImpl.fetch_by_email_and_password(email, password)
+          assert {:error, :not_found} = DefaultImpl.fetch_by_email_and_password(email, password)
         end
       end
     end

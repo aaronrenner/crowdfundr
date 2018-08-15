@@ -5,5 +5,6 @@ defmodule Crowdfundr.DefaultImpl.Accounts.Impl do
   alias Crowdfundr.InvalidDataError
   alias Crowdfundr.User
 
-  @callback create_user(map) :: {:ok, User.t()} | {:error, EmailAlreadyRegisteredError.t() | InvalidDataError.t()}
+  @callback create_user(map) ::
+              {:ok, User.t()} | {:error, EmailAlreadyRegisteredError.t() | InvalidDataError.t()}
 end

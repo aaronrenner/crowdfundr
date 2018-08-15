@@ -27,17 +27,19 @@ defmodule Mix.Tasks.Crowdfundr.ImportUsers do
     case OptionParser.parse(args, strict: []) do
       {_, [filename], []} ->
         {:ok, filename}
+
       _ ->
         {:error, :invalid_args}
     end
   end
 
   defp handle_error({:error, :invalid_args}) do
-    IO.puts """
+    IO.puts("""
     Invalid arguments.
 
       mix crowdfundr.import_users <filename>
-    """
+    """)
+
     exit({:shutdown, 1})
   end
 end

@@ -19,7 +19,8 @@ defmodule Crowdfundr.DefaultImpl.Accounts do
       {:ok, %User{}}
 
   """
-  @spec create_user(map) :: {:ok, User.t()} | {:error, EmailAlreadyRegisteredError.t() | InvalidDataError.t()}
+  @spec create_user(map) ::
+          {:ok, User.t()} | {:error, EmailAlreadyRegisteredError.t() | InvalidDataError.t()}
   def create_user(attrs \\ %{}) do
     impl().create_user(attrs)
   end

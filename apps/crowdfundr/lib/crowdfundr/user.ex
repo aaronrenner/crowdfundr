@@ -4,9 +4,9 @@ defmodule Crowdfundr.User do
   """
 
   @type t :: %__MODULE__{
-    id: String.t(),
-    email: String.t()
-  }
+          id: String.t(),
+          email: String.t()
+        }
 
   defstruct [:id, :email]
 end

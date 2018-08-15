@@ -4,14 +4,15 @@ defmodule Crowdfundr.InvalidDataError do
   """
 
   @type t :: %__MODULE__{
-    message: String.t(),
-    errors: term
-  }
+          message: String.t(),
+          errors: term
+        }
 
   defexception [:message, :errors]
 
   def exception(opts) do
     errors = Keyword.fetch!(opts, :errors)
+
     message = """
     unable to persist record because data is invalid
 
@@ -30,9 +31,9 @@ defmodule Crowdfundr.EmailAlreadyRegisteredError do
   """
 
   @type t :: %__MODULE__{
-    message: String.t(),
-    email: String.t()
-  }
+          message: String.t(),
+          email: String.t()
+        }
 
   defexception [:message, :email]
 

@@ -15,7 +15,8 @@ defmodule Crowdfundr do
   @doc """
   Register a user.
   """
-  @spec register_user(map) :: {:ok, User.t()} | {:error, EmailAlreadyRegisteredError.t() | InvalidDataError.t()}
+  @spec register_user(map) ::
+          {:ok, User.t()} | {:error, EmailAlreadyRegisteredError.t() | InvalidDataError.t()}
   def register_user(user_params) do
     impl().register_user(user_params)
   end
