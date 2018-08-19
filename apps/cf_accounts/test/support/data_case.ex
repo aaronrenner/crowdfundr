@@ -1,4 +1,4 @@
-defmodule Crowdfundr.DataCase do
+defmodule CFAccounts.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -19,20 +19,20 @@ defmodule Crowdfundr.DataCase do
 
   using do
     quote do
-      alias Crowdfundr.DefaultImpl.Accounts.DefaultImpl.Repo
+      alias CFAccounts.DefaultImpl.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import Crowdfundr.DataCase
+      import unquote(__MODULE__)
     end
   end
 
   setup tags do
-    :ok = Sandbox.checkout(Crowdfundr.DefaultImpl.Accounts.DefaultImpl.Repo)
+    :ok = Sandbox.checkout(CFAccounts.DefaultImpl.Repo)
 
     unless tags[:async] do
-      Sandbox.mode(Crowdfundr.DefaultImpl.Accounts.DefaultImpl.Repo, {:shared, self()})
+      Sandbox.mode(CFAccounts.DefaultImpl.Repo, {:shared, self()})
     end
 
     :ok

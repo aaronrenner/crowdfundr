@@ -1,4 +1,4 @@
-defmodule Crowdfundr.DefaultImpl.Accounts.Impl do
+defmodule CFAccounts.Impl do
   @moduledoc false
 
   alias Crowdfundr.EmailAlreadyRegisteredError

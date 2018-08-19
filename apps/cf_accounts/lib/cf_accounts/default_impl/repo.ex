@@ -1,6 +1,6 @@
-defmodule Crowdfundr.DefaultImpl.Accounts.DefaultImpl.Repo do
+defmodule CFAccounts.DefaultImpl.Repo do
   @moduledoc false
-  use Ecto.Repo, otp_app: :crowdfundr
+  use Ecto.Repo, otp_app: :cf_accounts
 
   @doc """
   Dynamically loads the repository url from the

@@ -1,8 +1,8 @@
-defmodule Crowdfundr.DefaultImpl.Accounts.DefaultImplTest do
-  use Crowdfundr.DataCase
+defmodule CFAccounts.DefaultImplTest do
+  use CFAccounts.DataCase
   use ExUnitProperties
 
-  alias Crowdfundr.DefaultImpl.Accounts.DefaultImpl
+  alias CFAccounts.DefaultImpl
   alias Crowdfundr.EmailAlreadyRegisteredError
   alias Crowdfundr.InvalidDataError
 

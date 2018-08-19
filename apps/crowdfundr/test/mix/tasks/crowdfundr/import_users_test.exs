@@ -1,5 +1,5 @@
 defmodule Mix.Tasks.Crowdfundr.ImportUsersTest do
-  use Crowdfundr.DataCase, async: true
+  use ExUnit.Case, async: true
 
   import Mox
 

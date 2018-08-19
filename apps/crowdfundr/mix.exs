@@ -12,7 +12,6 @@ defmodule Crowdfundr.Mixfile do
       elixir: "~> 1.4",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
-      aliases: aliases(),
       deps: deps()
     ]
   end
@@ -36,31 +35,14 @@ defmodule Crowdfundr.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:cf_accounts, in_umbrella: true},
       {:cf_emails, in_umbrella: true},
       {:cf_metrics, in_umbrella: true},
       {:constantizer, "~> 0.2.0"},
       {:crowdfundr_core, in_umbrella: true},
-      {:postgrex, ">= 0.0.0"},
-      {:ecto, "~> 2.1"},
-      {:comeonin, "~> 4.0"},
-      {:argon2_elixir, "~> 1.2"},
       {:jason, "~> 1.1"},
       {:mox, "~> 0.3", only: :test},
       {:stream_data, "~> 0.1", only: :test}
-    ]
-  end
-
-  # Aliases are shortcuts or tasks specific to the current project.
-  # For example, to create, migrate and run the seeds file at once:
-  #
-  #     $ mix ecto.setup
-  #
-  # See the documentation for `Mix` for more info on aliases.
-  defp aliases do
-    [
-      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-      "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end

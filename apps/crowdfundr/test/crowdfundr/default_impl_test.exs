@@ -1,5 +1,5 @@
 defmodule Crowdfundr.DefaultImplTest do
-  use Crowdfundr.DataCase, async: true
+  use ExUnit.Case, async: true
 
   import Mox
 

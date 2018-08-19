@@ -1,9 +1,11 @@
-defmodule Crowdfundr.DefaultImpl.Accounts do
-  @moduledoc false
+defmodule CFAccounts do
+  @moduledoc """
+  Internal API for working with accounts.
+  """
 
   import Constantizer
 
-  alias Crowdfundr.DefaultImpl.Accounts.DefaultImpl
+  alias CFAccounts.DefaultImpl
   alias Crowdfundr.EmailAlreadyRegisteredError
   alias Crowdfundr.InvalidDataError
   alias Crowdfundr.User
@@ -26,6 +28,6 @@ defmodule Crowdfundr.DefaultImpl.Accounts do
   end
 
   defconstp impl do
-    Application.get_env(:crowdfundr, :accounts_impl, DefaultImpl)
+    Application.get_env(:cf_accounts, :impl, DefaultImpl)
   end
 end

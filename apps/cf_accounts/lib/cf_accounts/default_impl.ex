@@ -1,17 +1,17 @@
-defmodule Crowdfundr.DefaultImpl.Accounts.DefaultImpl do
+defmodule CFAccounts.DefaultImpl do
   @moduledoc false
 
   import Ecto.Query, warn: false
 
+  alias CFAccounts.DefaultImpl
+  alias CFAccounts.DefaultImpl.Repo
   alias Comeonin.Argon2
-  alias Crowdfundr.DefaultImpl.Accounts.DefaultImpl
-  alias Crowdfundr.DefaultImpl.Accounts.DefaultImpl.Repo
   alias Crowdfundr.EmailAlreadyRegisteredError
   alias Crowdfundr.InvalidDataError
   alias Crowdfundr.User
   alias Ecto.Changeset
 
-  @behaviour Crowdfundr.DefaultImpl.Accounts.Impl
+  @behaviour CFAccounts.Impl
 
   def get_user!(id), do: DefaultImpl.User |> Repo.get!(id) |> to_domain
 
